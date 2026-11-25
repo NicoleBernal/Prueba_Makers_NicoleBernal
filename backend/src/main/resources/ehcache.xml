@@ -1,0 +1,27 @@
+<config xmlns="http://www.ehcache.org/v3"
+         xmlns:jsr107="http://www.ehcache.org/v3/jsr107">
+
+    <cache alias="loans">
+        <key-type>java.lang.Long</key-type>
+        <!-- Se declara Object porque Spring también guarda aquí un valor especial para resultados vacíos. -->
+        <value-type>java.lang.Object</value-type>
+        <expiry>
+            <ttl unit="minutes">5</ttl>
+        </expiry>
+        <resources>
+            <heap unit="entries">1000</heap>
+        </resources>
+    </cache>
+
+    <cache alias="userLoans">
+        <key-type>java.lang.Long</key-type>
+        <value-type>java.lang.Object</value-type>
+        <expiry>
+            <ttl unit="minutes">3</ttl>
+        </expiry>
+        <resources>
+            <heap unit="entries">500</heap>
+        </resources>
+    </cache>
+
+</config>

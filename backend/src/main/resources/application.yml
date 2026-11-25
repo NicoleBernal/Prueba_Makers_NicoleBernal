@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: loans-system
+
+  autoconfigure:
+    # La autenticación es solo JWT: evita el usuario con contraseña generada de Spring Boot.
+    exclude: org.springframework.boot.autoconfigure.security.reactive.ReactiveUserDetailsServiceAutoConfiguration
+
+  datasource:
+    url: jdbc:h2:mem:loansdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: false
+      path: /h2-console
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: never
+
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+
+jwt:
+  secret: ${JWT_SECRET:makers-bank-development-secret-key-2026}
+  expiration-ms: ${JWT_EXPIRATION_MS:3600000}
+
+server:
+  port: 8080

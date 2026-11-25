@@ -1,0 +1,28 @@
+<div class="shell" [class.with-sidebar]="user()">
+  @if (user(); as currentUser) {
+    <aside class="sidebar">
+      <a class="brand" [routerLink]="currentUser.role === 'ADMIN' ? '/admin/loans' : '/dashboard'">
+        <span class="logo" aria-hidden="true">M</span> Makers Bank
+      </a>
+      <nav aria-label="Navegación principal">
+        @if (currentUser.role === 'ADMIN') {
+          <a routerLink="/admin/loans" routerLinkActive="active">Préstamos</a>
+          <a routerLink="/admin/users" routerLinkActive="active">Usuarios</a>
+        } @else {
+          <a routerLink="/dashboard" routerLinkActive="active">Mis préstamos</a>
+        }
+      </nav>
+      <div class="account">
+        <div class="who">
+          <strong>{{ currentUser.name }}</strong>
+          <span>{{ currentUser.role === 'ADMIN' ? 'Administrador' : 'Usuario' }}</span>
+        </div>
+        <button class="ghost" type="button" (click)="logout()">Cerrar sesión</button>
+      </div>
+    </aside>
+  }
+  <div class="content">
+    <router-outlet />
+  </div>
+</div>
+<app-toast-host />
